@@ -7,6 +7,7 @@ import Post from '../../../components/Post';
 import { sortByDate } from '../../../utils';
 
 import { POSTS_PER_PAGE } from '../../../config';
+import Pagination from '../../../components/Pagination';
 
 export async function getStaticPaths() {
   const files = fs.readdirSync(path.join('posts'));
@@ -73,6 +74,8 @@ export default function Blog({ posts, numPages, currentPage }) {
           <Post key={index} post={post} />
         ))}
       </div>
+
+      <Pagination currentPage={currentPage} numPages={numPages} />
     </Layout>
   );
 }
