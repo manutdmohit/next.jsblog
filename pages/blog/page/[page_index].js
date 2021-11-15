@@ -6,7 +6,7 @@ import Layout from '../../../components/Layout';
 import Post from '../../../components/Post';
 import { sortByDate } from '../../../utils';
 
-import { PostsPerPage, POSTS_PER_PAGE } from '../../../config';
+import { POSTS_PER_PAGE } from '../../../config';
 
 export async function getStaticPaths() {
   const files = fs.readdirSync(path.join('posts'));
@@ -21,15 +21,15 @@ export async function getStaticPaths() {
     });
   }
 
-
-
   return {
     paths,
     fallback: false,
   };
 }
 
-export async function getStaticProps() {
+export async function getStaticProps({ params }) {
+  const page = parseInt((params && params.page_index) || 1);
+
   const files = fs.readdirSync(path.join('posts'));
 
   const posts = files.map((filename) => {
@@ -48,12 +48,22 @@ export async function getStaticProps() {
     };
   });
 
+  const numPages = Math.ceil(files.length / POSTS_PER_PAGE);
+  const pageIndex = page - 1;
+  const orderPosts = posts
+    .sort(sortByDate)
+    .slice(pageIndex * POSTS_PER_PAGE, (pageIndex + 1) * POSTS_PER_PAGE);
+
   return {
-    props: { posts: posts.sort(sortByDate) },
+    props: {
+      posts: orderPosts,
+      numPages,
+      currentPage: page,
+    },
   };
 }
 
-export default function Blog({ posts }) {
+export default function Blog({ posts, numPages, currentPage }) {
   return (
     <Layout>
       <h1 className="text-5xl border-b-4 p-5 font-bold">Blog</h1>
