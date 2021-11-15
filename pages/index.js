@@ -2,10 +2,10 @@ import fs from 'fs';
 import path from 'path';
 import Link from 'next/link';
 import matter from 'gray-matter';
-import Layout from '../components/Layout';
-import Post from '../components/Post';
+import Layout from '@/components/Layout';
+import Post from '@/components/Post';
 
-import { sortByDate } from '../utils';
+import { sortByDate } from '@/utils/index';
 
 export async function getStaticProps() {
   const files = fs.readdirSync(path.join('posts'));
@@ -31,7 +31,7 @@ export async function getStaticProps() {
   };
 }
 
-export default function Home({ posts }) {
+export default function HomePage({ posts }) {
   return (
     <Layout>
       <h1 className="text-5xl border-b-4 p-5 font-bold">Latest Posts</h1>
