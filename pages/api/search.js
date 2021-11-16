@@ -11,6 +11,8 @@ export default function handler(req, res) {
     const files = fs.readdirSync(path.join('posts'));
 
     posts = files.map((filename) => {
+      const slug = filename.replace('.md', '');
+
       const markdownWithMeta = fs.readFileSync(
         path.join('posts', filename),
         'utf-8'
@@ -20,6 +22,7 @@ export default function handler(req, res) {
 
       return {
         frontmatter,
+        slug,
       };
     });
   }
@@ -31,5 +34,5 @@ export default function handler(req, res) {
       category.toLowerCase().indexOf(req.query.q) != -1
   );
 
-  res.status(200).json(JSON.stringify({results}));
+  res.status(200).json(JSON.stringify({ results }));
 }
