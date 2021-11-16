@@ -5,6 +5,19 @@ export default function Search() {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
 
+  useEffect(() => {
+    const getResults = async () => {
+      if (searchTerm === '') {
+        setSearchTerm([]);
+      } else {
+        const res = await fetch(`/api/search?q=${searchTerm}`);
+        const { results } = await res.json();
+        setSearchResults(results);
+      }
+    };
+    getResults();
+  }, [searchTerm]);
+
   return (
     <div className="relative bg-gray-600 p-4">
       <div className="container mx-auto flex items-center justify-center md:justify-end">
