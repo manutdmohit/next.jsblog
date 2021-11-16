@@ -6,7 +6,6 @@ export default function CategoryList({ categories }) {
       <h3 className="text-2xl bg-gray-800 text-white p-3 rounded">
         Blog Categories
       </h3>
-
       <ul className="divide-y divide-gray-300">
         {categories.map((category, index) => (
           <Link key={index} href={`/blog/category/${category.toLowerCase()}`}>
