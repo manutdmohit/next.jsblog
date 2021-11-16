@@ -40,7 +40,6 @@ export async function getStaticProps({ params }) {
 
   const uniqueCategories = [...new Set(categories)];
 
-
   const numPages = Math.ceil(files.length / POSTS_PER_PAGE);
   const pageIndex = page - 1;
   const orderPosts = posts.slice(
@@ -62,7 +61,7 @@ export default function Blog({ posts, numPages, currentPage, categories }) {
   return (
     <Layout>
       <div className="flex justify-between">
-        <div className="w-3/4 mr-10">
+        <div className="w-2,5/4 mr-10">
           <h1 className="text-5xl border-b-4 p-5 font-bold">Blog</h1>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -72,8 +71,8 @@ export default function Blog({ posts, numPages, currentPage, categories }) {
           </div>
         </div>
 
-        <div className="w-1/4">
-          <CategoryList   categories={categories } />
+        <div className="w-1.5/4">
+          <CategoryList categories={categories} />
         </div>
       </div>
 
